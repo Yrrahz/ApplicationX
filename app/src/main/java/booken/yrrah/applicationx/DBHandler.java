@@ -378,4 +378,9 @@ public class DBHandler extends SQLiteOpenHelper{
         onCreate(db);
     }
 
+    public void fyllDb(){
+        CategoryModel cm = new CategoryModel("TestCat", 1337);
+
+        addCategory(cm);
+    }
 }

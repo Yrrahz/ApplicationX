@@ -1,0 +1,7 @@
+ApplicationX - Notes
+
+Branches:
+	✔	devDatabase - Implement database from YrrahMoney.
+	
+Details:
+	devDatabase - Implementera en databas. Med ett tydligt exempel på hur den används.
