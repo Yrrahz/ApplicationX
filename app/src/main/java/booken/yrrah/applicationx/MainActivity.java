@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         testDB();
     }
 
-    public void testButtonPressed(View view){
+    public void categoryButtonPressed(View view){
         //Button testButton = findViewById(R.id.testButton);
 
         TextView testTextDB = findViewById(R.id.helloW);

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ApplicationX</string>
+    <string name="totalAmount">Total Amount :</string>
+    <string name="addCategoryButton">Add Category</string>
 </resources>
