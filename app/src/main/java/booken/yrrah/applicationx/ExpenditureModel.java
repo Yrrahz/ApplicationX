@@ -1,21 +1,19 @@
 package booken.yrrah.applicationx;
 
-import java.util.Calendar;
-
 public class ExpenditureModel {
 
-    private int subAmountId; // Barely used because DB handles it itself by auto-increment
+    private int expenditureId; // Barely used because DB handles it itself by auto-increment
     private int amount;
     private int date;
-    String event;
+    private String event;
     private String refID; // Reference to Category
 
     public ExpenditureModel(){
-        this.date = 0; // this is to ensure we always have an int value, incase some method would crash if it would getDate() and receive a null value.
+        this.date = 0; // this is to ensure we always have an int value, in case some method would crash if it would getDate() and receive a null value.
     }
 
-    public ExpenditureModel(int subAmountId, int amount, String event, String refID, int date){
-        this.subAmountId = subAmountId;
+    public ExpenditureModel(int expenditureId, int amount, String event, String refID, int date){
+        this.expenditureId = expenditureId;
         this.amount = amount;
         this.event = event;
         this.refID = refID;
@@ -26,8 +24,8 @@ public class ExpenditureModel {
         }
     }
 
-    public void setExpenditureId(int subAmountId){
-        this.subAmountId = subAmountId;
+    public void setExpenditureId(int expenditureId){
+        this.expenditureId = expenditureId;
     }
 
     public void setAmount(int amount){
@@ -43,16 +41,20 @@ public class ExpenditureModel {
     }
 
     public void setDate(int date){
-        Calendar now = Calendar.getInstance();
-        if (date == 0) {
-            this.date = now.get(Calendar.YEAR)*10000 + (now.get(Calendar.MONTH)+1)*100 + now.get(Calendar.DATE);
-        } else {
-            this.date = date;
-        }
+        this.date = date;
     }
 
-    public int getSubAmountId() {
-        return subAmountId;
+//    public void setDate(int date){
+//        Calendar now = Calendar.getInstance();
+//        if (date == 0) {
+//            this.date = now.get(Calendar.YEAR)*10000 + (now.get(Calendar.MONTH)+1)*100 + now.get(Calendar.DATE);
+//        } else {
+//            this.date = date;
+//        }
+//    }
+
+    public int getExpenditureId() {
+        return expenditureId;
     }
 
     public int getAmount() {
