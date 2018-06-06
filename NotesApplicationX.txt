@@ -1,10 +1,23 @@
 ApplicationX - Notes
 
 Branches:
-	☼	devDatabase - Implement database from YrrahMoney.
-		devDesign	- Implement the design.
+	✔	devDatabase - Implement database from YrrahMoney.
+	☼	devDesign	- Implement the design.
+		devCleanUp	- Clean up
+---------------------------------------------
+		extFloat	- Float + - button.
+		extTest		- Implement tests.
+		extTheme	- Implement option to another theme.
 	
 Details:
 	devDatabase - Implementera en databas. Med ett tydligt exempel på hur den används.
-	
+
 	devDesign	- Implementera designen för appen. Sno mycket från YrrahMoney.
+
+	devCleanUp 	- Ta bort alla metoder som inte behövs. Finns antagligen rätt många i DBHandler.
+
+	extFloat	- Lägg till en FloatingButton som har ett + eller - på sig som avgör om du vill göra en income eller expenditure.
+
+	extTest 	- Lägg till tester, om jag orkar, därav 'ext' tag.
+
+	extTheme 	- Lägg till en feature så att man kan byta tema eller färger på appen.

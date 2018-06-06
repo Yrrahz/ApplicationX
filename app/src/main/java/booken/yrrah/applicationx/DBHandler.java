@@ -381,6 +381,8 @@ public class DBHandler extends SQLiteOpenHelper{
     public void fyllDb(){
         CategoryModel cm = new CategoryModel("TestCat", 1337);
         addCategory(cm);
+        cm = new CategoryModel("Newtestcat",10);
+        addCategory(cm);
 
         ExpenditureModel expModel = new ExpenditureModel(123,10337,"TestExp Model !/", "TestCat",1);
         addExpenditure(expModel);

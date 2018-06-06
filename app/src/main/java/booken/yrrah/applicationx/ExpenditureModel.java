@@ -24,6 +24,17 @@ public class ExpenditureModel {
         }
     }
 
+    public ExpenditureModel(int amount, String event, String refID, int date){
+        this.amount = amount;
+        this.event = event;
+        this.refID = refID;
+        if(date == 0){
+            setDate(0);
+        }else{
+            this.date = date;
+        }
+    }
+
     public void setExpenditureId(int expenditureId){
         this.expenditureId = expenditureId;
     }
