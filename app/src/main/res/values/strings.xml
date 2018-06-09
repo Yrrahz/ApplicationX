@@ -2,4 +2,6 @@
     <string name="app_name">ApplicationX</string>
     <string name="totalAmount">Total Amount :</string>
     <string name="addCategoryButton">Add Category</string>
+    <string name="stats">Stats</string>
+    <string name="about">About</string>
 </resources>

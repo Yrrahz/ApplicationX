@@ -5,6 +5,7 @@ Branches:
 	☼	devDesign	- Implement the design.
 		devCleanUp	- Clean up
 ---------------------------------------------
+		extDropDown	- AddCategory button dropdown
 		extFloat	- Float + - button.
 		extTest		- Implement tests.
 		extTheme	- Implement option to another theme.
@@ -15,6 +16,8 @@ Details:
 	devDesign	- Implementera designen för appen. Sno mycket från YrrahMoney.
 
 	devCleanUp 	- Ta bort alla metoder som inte behövs. Finns antagligen rätt många i DBHandler.
+
+	extDropDown	- Knappen "Add Category" skulle kunna komma ner som en dropdown effekt eftersom den antagligen inte används så ofta.
 
 	extFloat	- Lägg till en FloatingButton som har ett + eller - på sig som avgör om du vill göra en income eller expenditure.
 
