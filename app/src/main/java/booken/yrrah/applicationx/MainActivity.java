@@ -1,6 +1,7 @@
 package booken.yrrah.applicationx;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.menu_stats:
-                Toast.makeText(getApplicationContext(),"Stats pressed!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, StatsActivity.class);
+                startActivity(intent);
+                //Toast.makeText(getApplicationContext(),"Stats pressed!", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_about:
                 Toast.makeText(getApplicationContext(),"About pressed!", Toast.LENGTH_SHORT).show();

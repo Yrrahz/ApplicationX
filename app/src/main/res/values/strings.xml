@@ -4,4 +4,8 @@
     <string name="addCategoryButton">Add Category</string>
     <string name="stats">Stats</string>
     <string name="about">About</string>
+    <string name="income">Income</string>
+    <string name="expenditure">Expenditure</string>
+    <string name="total">Total</string>
+    <string name="incExp">Income\n\nExpenditure</string>
 </resources>
