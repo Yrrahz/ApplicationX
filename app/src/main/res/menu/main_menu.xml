@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_stats"
         android:title="@string/stats"/>
+    <item android:id="@+id/menu_sort_alpha"
+        android:title="@string/sort_alpha"/>
+    <item android:id="@+id/menu_sort_value"
+        android:title="@string/sort_value"/>
     <item android:id="@+id/menu_about"
         android:title="@string/about" />
 </menu>

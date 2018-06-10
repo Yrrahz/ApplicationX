@@ -383,8 +383,47 @@ public class DBHandler extends SQLiteOpenHelper{
         addCategory(cm);
         cm = new CategoryModel("Newtestcat",10);
         addCategory(cm);
+        cm = new CategoryModel("Hyra",11);
+        addCategory(cm);
+        cm = new CategoryModel("Spel",12);
+        addCategory(cm);
+        cm = new CategoryModel("Mat",13);
+        addCategory(cm);
+        cm = new CategoryModel("Hygien",14);
+        addCategory(cm);
+        cm = new CategoryModel("Transport",15);
+        addCategory(cm);
+        cm = new CategoryModel("Jobb",16);
+        addCategory(cm);
+        cm = new CategoryModel("Övrigt",17);
+        addCategory(cm);
 
         ExpenditureModel expModel = new ExpenditureModel(123,10337,"TestExp Model !/", "TestCat",1);
         addExpenditure(expModel);
+        expModel = new ExpenditureModel(124,1524,"event","Hyra",1);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(125,165,"event","Spel",1);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(126,1234,"event","Mat",1);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(127,1684,"event","Hygien",1);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(128,1693,"event","Transport",1);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(129,1774,"event","Jobb",1);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(1210,152,"event","Övrigt",1);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(1211,15,"event","Spel",1);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(1212,1524,"event","Spel",1);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(1213,1567,"event","Spel",1);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(1214,1561,"event","Mat",1);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(1215,1524,"event","Newtestcat",1);
+        addExpenditure(expModel);
+
     }
 }

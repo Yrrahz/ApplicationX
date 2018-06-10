@@ -51,7 +51,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_stats:
                 Intent intent = new Intent(this, StatsActivity.class);
                 startActivity(intent);
-                //Toast.makeText(getApplicationContext(),"Stats pressed!", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menu_sort_alpha:
+                Toast.makeText(getApplicationContext(),"Sort Alphabetically pressed!", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menu_sort_value:
+                Toast.makeText(getApplicationContext(),"Sort by Value pressed!", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_about:
                 Toast.makeText(getApplicationContext(),"About pressed!", Toast.LENGTH_SHORT).show();
@@ -164,9 +169,13 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dbHandler.addExpenditure(new ExpenditureModel(Integer.parseInt(input.getText().toString()),"inserted event",categoryName,5));
-                updateMainList(dbHandler.getAllCategories());
-                updateTotalAmount();
+                if(Integer.parseInt(input.getText().toString()) == 0){ // If the user thought it was a good idea to add an event with the value 0... dumb ass...
+                    dialog.cancel();
+                }else {
+                    dbHandler.addExpenditure(new ExpenditureModel(Integer.parseInt(input.getText().toString()),"inserted event",categoryName,5));
+                    updateMainList(dbHandler.getAllCategories());
+                    updateTotalAmount();
+                }
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

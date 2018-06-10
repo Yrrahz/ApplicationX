@@ -8,4 +8,6 @@
     <string name="expenditure">Expenditure</string>
     <string name="total">Total</string>
     <string name="incExp">Income\n\nExpenditure</string>
+    <string name="sort_alpha">Sort Alphabetically</string>
+    <string name="sort_value">Sort by Value</string>
 </resources>
