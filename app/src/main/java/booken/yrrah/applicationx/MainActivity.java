@@ -91,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
+    public void floatingActionButtonPressed(View view){
+        Toast.makeText(getApplicationContext(),"Floating Action!", Toast.LENGTH_SHORT).show();
+    }
+
     /**
      * This method takes the input from the user and first, takes away all special characters, trims
      * the input and removes excess whitespaces. Then checks if the Category already exists in the
