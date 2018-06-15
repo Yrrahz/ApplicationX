@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
 
         switch (item.getItemId()) {
+            case R.id.menu_add_income:
+                Toast.makeText(getApplicationContext(),"Add Income pressed!", Toast.LENGTH_SHORT).show();
+                return true;
             case R.id.menu_stats:
                 Intent intent = new Intent(this, StatsActivity.class);
                 startActivity(intent);
