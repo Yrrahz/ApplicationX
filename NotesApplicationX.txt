@@ -3,10 +3,10 @@ ApplicationX - Notes
 
 Branches:
 	✔	devDatabase - Implement database from YrrahMoney.
-	☼	devDesign	- Implement the design.
+	✔	devDesign	- Implement the design.
 		devCleanUp	- Clean up
 		deDate		- Implement date features
-		devLogic	- Implement the logic from devDesign
+	☼	devLogic	- Implement the logic from devDesign
 ---------------------------------------------
 		extDropDown	- AddCategory button dropdown
 		extFloat	- Float + - button.
