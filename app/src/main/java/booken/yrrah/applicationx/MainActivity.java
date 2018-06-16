@@ -1,5 +1,6 @@
 package booken.yrrah.applicationx;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -11,9 +12,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +53,49 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.menu_add_income:
-                Toast.makeText(getApplicationContext(),"Add Income pressed!", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Add Income");
+                Context context = this;
+                LinearLayout layout = new LinearLayout(context);
+                layout.setOrientation(LinearLayout.VERTICAL);
+
+                final EditText amountBox = new EditText(context);
+                amountBox.setHint("Add Amount");
+                amountBox.setInputType(InputType.TYPE_CLASS_NUMBER);
+                layout.addView(amountBox);
+
+                final TextView categoryText = new TextView(context);
+                categoryText.setText(R.string.chooseCategory);
+                layout.addView(categoryText);
+
+                final Spinner popupSpinner = new Spinner(context, Spinner.MODE_DIALOG);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, getAllCategoriesList());
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                popupSpinner.setAdapter(adapter);
+                layout.addView(popupSpinner);
+
+                builder.setView(layout);
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String testAmount = amountBox.getText().toString();
+                        if(testAmount.isEmpty() || Integer.parseInt(testAmount) == 0){
+                            dialog.cancel();
+                        }else{
+                            insertAmount(popupSpinner.getSelectedItem().toString(),Integer.parseInt(testAmount), "Income Event");
+                            updateTotalAmount();
+                        }
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
                 return true;
             case R.id.menu_stats:
                 Intent intent = new Intent(this, StatsActivity.class);
@@ -149,51 +195,68 @@ public class MainActivity extends AppCompatActivity {
         ListView presentData = findViewById(R.id.listCategories);
 
         presentData.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            // OnClick for main List
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id){
 
-                insertAmount(data.get(position).get(categoryTitle));
+                final String categoryName = data.get(position).get(categoryTitle);
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Insert amount for "+categoryName);
 
+                final EditText input = new EditText(v.getContext());
+                input.setInputType(InputType.TYPE_CLASS_NUMBER); // input type, such as normal text or pw...
+                builder.setView(input);
+
+// Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    // OnClick for the AlertBuilder handling Expenditure
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String testAmount = input.getText().toString();
+                        if(testAmount.isEmpty() || Integer.parseInt(testAmount) == 0){ // If the user thought it was a good idea to add an event with the value 0... dumb ass...
+                            dialog.cancel();
+                        }else {
+                            insertAmount(categoryName, Integer.parseInt(input.getText().toString()), "Expenditure Event");
+                            updateMainList(dbHandler.getAllCategories());
+                            updateTotalAmount();
+                        }
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
             }
         });
 
         presentData.setAdapter(adapter);
     }
 
-    private void insertAmount(final String categoryName){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Insert amount for "+categoryName);
-
-        final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_NUMBER); // input type, such as normal text or pw...
-        builder.setView(input);
-
-// Set up the buttons
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if(Integer.parseInt(input.getText().toString()) == 0){ // If the user thought it was a good idea to add an event with the value 0... dumb ass...
-                    dialog.cancel();
-                }else {
-                    dbHandler.addExpenditure(new ExpenditureModel(Integer.parseInt(input.getText().toString()),"inserted event",categoryName,5));
-                    updateMainList(dbHandler.getAllCategories());
-                    updateTotalAmount();
-                }
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
+    private void insertAmount(String categoryName, int amount, String event){
+        dbHandler.addExpenditure(new ExpenditureModel(amount, event, categoryName, 5));
     }
 
     private void updateTotalAmount(){
         Integer totalAmount = dbHandler.totalAmount();
         TextView totalResult = findViewById(R.id.textViewTotalResult);
         totalResult.setText(String.format("%s",totalAmount.toString()));
+    }
+
+    private List<String> getAllCategoriesList(){
+        List<String> returnCategoryNames = new ArrayList<>();
+
+        for(CategoryModel cm : dbHandler.getAllCategories()){
+            returnCategoryNames.add(cm.getName());
+        }
+
+        if(returnCategoryNames.size() == 0 ){
+            returnCategoryNames.add("No Category!");
+            return returnCategoryNames;
+        }
+        return returnCategoryNames;
     }
 }
