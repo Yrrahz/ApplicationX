@@ -22,9 +22,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import comparators.sortAlphabetically;
+import comparators.sortByAmount;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String categoryTitle = "item"; // These two variables...
     private static final String categoryData = "subItem"; // ... are final for a reason.
     List<Map<String, String>> data = new ArrayList<>();
+    List<CategoryModel> categoryModelList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                             dialog.cancel();
                         }else{
                             insertAmount(popupSpinner.getSelectedItem().toString(),Integer.parseInt(testAmount), "Income Event");
+                            updateMainList(categoryModelList);
                             updateTotalAmount();
                         }
                     }
@@ -102,10 +108,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.menu_sort_alpha:
-                Toast.makeText(getApplicationContext(),"Sort Alphabetically pressed!", Toast.LENGTH_SHORT).show();
+                Collections.sort(categoryModelList, new sortAlphabetically());
+                updateMainList(categoryModelList);
+                Toast.makeText(getApplicationContext(),"Sorted Alphabetically!", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_sort_value:
-                Toast.makeText(getApplicationContext(),"Sort by Value pressed!", Toast.LENGTH_SHORT).show();
+                Collections.sort(categoryModelList, new sortByAmount());
+                updateMainList(categoryModelList);
+                Toast.makeText(getApplicationContext(),"Sorted by Value!", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_about:
                 Toast.makeText(getApplicationContext(),"About pressed!", Toast.LENGTH_SHORT).show();
@@ -127,7 +137,13 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                insertNewCategory(input.getText().toString());
+                String testNewCategoryName = input.getText().toString();
+                if(testNewCategoryName.isEmpty()){
+                    dialog.cancel();
+                    Toast.makeText(getApplicationContext(),"Category Name is not valid!", Toast.LENGTH_SHORT).show();
+                }else{
+                    insertNewCategory(testNewCategoryName);
+                }
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -150,16 +166,20 @@ public class MainActivity extends AppCompatActivity {
      */
     private void insertNewCategory(String newCategory){
         newCategory = newCategory.replaceAll("[ ](?=[ ])|[^-_,A-Za-z0-9 ]+","").trim();
+        if(newCategory.isEmpty()){
+            Toast.makeText(getApplicationContext(),"Category Name is not valid!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         newCategory = newCategory.substring(0,1).toUpperCase() + newCategory.substring(1).toLowerCase();
 
-        List<CategoryModel> categoryList = dbHandler.getAllCategories();
+        //List<CategoryModel> categoryList = dbHandler.getAllCategories();
         CategoryModel cm = new CategoryModel(newCategory,0);
 
-        if(!categoryList.contains(cm)){
+        if(!categoryModelList.contains(cm)){
             dbHandler.addCategory(cm);
-            categoryList.add(cm);
+            categoryModelList.add(cm);
 
-            updateMainList(categoryList);
+            updateMainList(categoryModelList);
 
             Toast.makeText(getApplicationContext(),"Category Added!", Toast.LENGTH_SHORT).show();
         }else{
@@ -170,14 +190,15 @@ public class MainActivity extends AppCompatActivity {
     private void setUp(){
         this.dbHandler = new DBHandler(this);
         dbHandler.fyllDb();
+        this.categoryModelList = dbHandler.getAllCategories();
 
-        List<CategoryModel> listCm = dbHandler.getAllCategories();
+        //List<CategoryModel> listCm = dbHandler.getAllCategories();
 
-        updateMainList(listCm);
+        updateMainList(categoryModelList);
         updateTotalAmount();
     }
 
-    private void updateMainList(List<CategoryModel> categoryList){
+    private void updateMainList(final List<CategoryModel> categoryList){
         data.clear();
 
         for(CategoryModel cm : categoryList){
@@ -217,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
                             dialog.cancel();
                         }else {
                             insertAmount(categoryName, Integer.parseInt(input.getText().toString()), "Expenditure Event");
-                            updateMainList(dbHandler.getAllCategories());
+                            updateMainList(categoryModelList);
                             updateTotalAmount();
                         }
                     }
@@ -238,6 +259,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void insertAmount(String categoryName, int amount, String event){
         dbHandler.addExpenditure(new ExpenditureModel(amount, event, categoryName, 5));
+
+        CategoryModel cm = new CategoryModel(categoryName,1);
+        int indexOfCategory = categoryModelList.indexOf(cm);
+        cm.setTotalAmount(categoryModelList.get(indexOfCategory).getTotalAmount() + amount);
+
+        categoryModelList.set(indexOfCategory, cm);
     }
 
     private void updateTotalAmount(){

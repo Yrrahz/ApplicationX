@@ -5,6 +5,12 @@ public class CategoryModel {
     private int totalAmount;
     private int date;
 
+    public CategoryModel(String name, int totalAmount, int date){
+        this.name = name;
+        this.totalAmount = totalAmount;
+        this.date = date;
+    }
+
     public CategoryModel(String name, int totalAmount){
         this.name = name;
         this.totalAmount = totalAmount;

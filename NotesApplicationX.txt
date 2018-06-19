@@ -22,7 +22,7 @@ Details:
 
 	devDate		- Implementera datumhantering. Stats ska kunna förfrågas till att visa upp stats baserat på datum. Allt detta borde kunna göras då datumstrukturen redan finns. En ny meny med olika val av sortering som i MainActivity borde funka snyggt och bra.
 
-	devLogic	- Implementera logiken bakom de design objekten implementerade i devDesign. Mycket är redan gjort men det kommer inte bli någon mer design. Därav ny branch.
+	devLogic	- Implementera logiken bakom de design objekten implementerade i devDesign. Mycket är redan gjort men det kommer inte bli någon mer design. Därav ny branch. Fixa så att mainList inte återställer sin position när man lägger in ny expModel.
 
 	extDropDown	- Knappen "Add Category" skulle kunna komma ner som en dropdown effekt eftersom den antagligen inte används så ofta.
 
