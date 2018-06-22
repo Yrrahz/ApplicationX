@@ -4,9 +4,9 @@ import java.util.Comparator;
 
 import models.CategoryModel;
 
-public class sortAlphabetically implements Comparator<CategoryModel> {
+public class sortLastModified implements Comparator<CategoryModel> {
     @Override
     public int compare(CategoryModel categoryModel, CategoryModel t1) {
-        return categoryModel.getName().compareTo(t1.getName());
+        return Integer.compare(t1.getDate(), categoryModel.getDate());
     }
 }

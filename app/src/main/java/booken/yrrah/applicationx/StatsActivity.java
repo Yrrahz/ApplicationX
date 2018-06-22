@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import models.CategoryModel;
+import models.ExpenditureModel;
+
 public class StatsActivity extends AppCompatActivity {
 
     private DBHandler dbHandler;

@@ -1,4 +1,4 @@
-package booken.yrrah.applicationx;
+package models;
 
 public class CategoryModel {
     private String name;

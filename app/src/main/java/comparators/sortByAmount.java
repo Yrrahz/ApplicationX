@@ -1,7 +1,7 @@
 package comparators;
 import java.util.Comparator;
 
-import booken.yrrah.applicationx.CategoryModel;
+import models.CategoryModel;
 
 public class sortByAmount implements Comparator<CategoryModel> {
     @Override

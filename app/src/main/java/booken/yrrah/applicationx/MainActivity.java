@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,6 +30,8 @@ import java.util.Map;
 
 import comparators.sortAlphabetically;
 import comparators.sortByAmount;
+import models.CategoryModel;
+import models.ExpenditureModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -85,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String testAmount = amountBox.getText().toString();
-                        if(testAmount.isEmpty() || Integer.parseInt(testAmount) == 0){
+                        if(testAmount.isEmpty() || Integer.parseInt(testAmount) == 0 || categoryModelList.size() == 0){
                             dialog.cancel();
                         }else{
                             insertAmount(popupSpinner.getSelectedItem().toString(),Integer.parseInt(testAmount), "Income Event");
@@ -107,22 +110,52 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, StatsActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.menu_sort_alpha:
-                Collections.sort(categoryModelList, new sortAlphabetically());
-                updateMainList(categoryModelList);
-                Toast.makeText(getApplicationContext(),"Sorted Alphabetically!", Toast.LENGTH_SHORT).show();
+            case R.id.menu_how_to:
+                Toast.makeText(getApplicationContext(),"Tutorial Initiated!", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.menu_sort_value:
-                Collections.sort(categoryModelList, new sortByAmount());
-                updateMainList(categoryModelList);
-                Toast.makeText(getApplicationContext(),"Sorted by Value!", Toast.LENGTH_SHORT).show();
+            case R.id.menu_settings:
+                Toast.makeText(getApplicationContext(),"Settings Initiated!", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_about:
-                Toast.makeText(getApplicationContext(),"About pressed!", Toast.LENGTH_SHORT).show();
+                sortingPopupMenu(findViewById(R.id.menu_about));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    /**
+     * This is the menu for sorting the 'second' menu containing the sorting options.
+     * It is to be only containing sorting options but could contain anything.
+     * @param v - the view which this menu should be based from. In this case the 'About' option from the top menu.
+     */
+    public void sortingPopupMenu(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.menu_sort_alpha:
+                        Collections.sort(categoryModelList, new sortAlphabetically());
+                        updateMainList(categoryModelList);
+                        Toast.makeText(getApplicationContext(),"Sorted Alphabetically!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.menu_sort_value:
+                        Collections.sort(categoryModelList, new sortByAmount());
+                        updateMainList(categoryModelList);
+                        Toast.makeText(getApplicationContext(),"Sorted by Value!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.menu_sort_last_modified:
+                        Toast.makeText(getApplicationContext(),"Last Modified Sorted!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.sort_menu, popup.getMenu());
+        popup.show();
     }
 
     public void categoryButtonPressed(View view){
@@ -172,7 +205,6 @@ public class MainActivity extends AppCompatActivity {
         }
         newCategory = newCategory.substring(0,1).toUpperCase() + newCategory.substring(1).toLowerCase();
 
-        //List<CategoryModel> categoryList = dbHandler.getAllCategories();
         CategoryModel cm = new CategoryModel(newCategory,0);
 
         if(!categoryModelList.contains(cm)){
@@ -191,8 +223,6 @@ public class MainActivity extends AppCompatActivity {
         this.dbHandler = new DBHandler(this);
         dbHandler.fyllDb();
         this.categoryModelList = dbHandler.getAllCategories();
-
-        //List<CategoryModel> listCm = dbHandler.getAllCategories();
 
         updateMainList(categoryModelList);
         updateTotalAmount();

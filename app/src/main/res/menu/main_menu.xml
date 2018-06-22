@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_add_income"
         android:title="@string/addIncome"/>
     <item android:id="@+id/menu_stats"
         android:title="@string/stats"/>
-    <item android:id="@+id/menu_sort_alpha"
-        android:title="@string/sort_alpha"/>
-    <item android:id="@+id/menu_sort_value"
-        android:title="@string/sort_value"/>
-    <item android:id="@+id/menu_about"
-        android:title="@string/about" />
+    <item android:id="@+id/menu_how_to"
+        android:title="@string/how_to"/>
+    <item android:id="@+id/menu_settings"
+        android:title="@string/settings"/>
+    <item
+        android:id="@+id/menu_about"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="@string/about"
+        app:showAsAction="always" />
 </menu>
