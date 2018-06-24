@@ -30,6 +30,7 @@ import java.util.Map;
 
 import comparators.sortAlphabetically;
 import comparators.sortByAmount;
+import comparators.sortMostFreq;
 import models.CategoryModel;
 import models.ExpenditureModel;
 
@@ -114,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Tutorial Initiated!", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_settings:
+                //Date
                 Toast.makeText(getApplicationContext(),"Settings Initiated!", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_about:
@@ -147,6 +149,11 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.menu_sort_last_modified:
                         Toast.makeText(getApplicationContext(),"Last Modified Sorted!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.menu_sort_frequency:
+                        Collections.sort(categoryModelList, new sortMostFreq());
+                        updateMainList(categoryModelList);
+                        Toast.makeText(getApplicationContext(),"Frequency Sorted!", Toast.LENGTH_SHORT).show();
                         return true;
                     default:
                         return false;

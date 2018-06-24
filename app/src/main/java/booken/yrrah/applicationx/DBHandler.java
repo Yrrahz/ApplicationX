@@ -46,6 +46,7 @@ public class DBHandler extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, cm.getName()); // Category Name
         values.put(COL_TOTAL_AMOUNT, cm.getTotalAmount()); // Total Amount
+        values.put(COL_DATE, cm.getDate()); // Date
         // Inserting Row
         db.insert(TABLE_CATEGORY, null, values);
         db.close(); // Closing database connection
@@ -94,6 +95,7 @@ public class DBHandler extends SQLiteOpenHelper{
                 CategoryModel cm = new CategoryModel();
                 cm.setName(cursor.getString(0));
                 cm.setTotalAmount(Integer.parseInt(cursor.getString(1)));
+                cm.setDate(Integer.parseInt(cursor.getString(2)));
                 cmList.add(cm);
             } while (cursor.moveToNext());
         }
@@ -364,7 +366,9 @@ public class DBHandler extends SQLiteOpenHelper{
         String CREATE_TRIGGER = "CREATE TRIGGER " + TRIGGER_UPDATE_AMOUNT + " AFTER INSERT ON "
                 + TABLE_EXPENDITURE + " BEGIN UPDATE " + TABLE_CATEGORY + " SET " + COL_TOTAL_AMOUNT
                 + " = (SELECT SUM(" + COL_TOTAL_AMOUNT + ") FROM " + TABLE_CATEGORY + " WHERE " + KEY_NAME
-                + " = NEW."+COL_REFID+") + NEW."+COL_AMOUNT+" WHERE " + KEY_NAME + " = NEW."+COL_REFID+";END;";
+                + " = NEW."+COL_REFID+") + NEW."+COL_AMOUNT + ","
+                + COL_DATE + " = (SELECT " + COL_DATE + " FROM " + TABLE_CATEGORY + " WHERE " + KEY_NAME + " = NEW."+COL_REFID+ ") + 1"
+                + " WHERE " + KEY_NAME + " = NEW."+COL_REFID+";END;";
 
         db.execSQL(CREATE_CATEGORY_TABLE);
         db.execSQL(CREATE_SUBAMOUNT_TABLE);
