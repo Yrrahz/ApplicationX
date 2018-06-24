@@ -1,35 +1,36 @@
 package models;
 
+import java.util.Calendar;
+
 public class ExpenditureModel {
 
     private int expenditureId; // Barely used because DB handles it itself by auto-increment
     private int amount;
-    private int date;
-    private String event;
+    private long date;
+    private String event; // Currently this is either 'Expenditure' or 'Income'
     private String refID; // Reference to Category
 
     public ExpenditureModel(){
-        this.date = 0; // this is to ensure we always have an int value, in case some method would crash if it would getDate() and receive a null value.
     }
 
-    public ExpenditureModel(int expenditureId, int amount, String event, String refID, int date){
+    public ExpenditureModel(int expenditureId, int amount, String event, String refID, long date){
         this.expenditureId = expenditureId;
         this.amount = amount;
         this.event = event;
         this.refID = refID;
         if(date == 0){
-            setDate(0);
+            setDate();
         }else{
             this.date = date;
         }
     }
 
-    public ExpenditureModel(int amount, String event, String refID, int date){
+    public ExpenditureModel(int amount, String event, String refID, long date){
         this.amount = amount;
         this.event = event;
         this.refID = refID;
         if(date == 0){
-            setDate(0);
+            setDate();
         }else{
             this.date = date;
         }
@@ -51,18 +52,13 @@ public class ExpenditureModel {
         this.refID = refID;
     }
 
-    public void setDate(int date){
+    public void setDate(long date){
         this.date = date;
     }
 
-//    public void setDate(int date){
-//        Calendar now = Calendar.getInstance();
-//        if (date == 0) {
-//            this.date = now.get(Calendar.YEAR)*10000 + (now.get(Calendar.MONTH)+1)*100 + now.get(Calendar.DATE);
-//        } else {
-//            this.date = date;
-//        }
-//    }
+    public void setDate(){
+        this.date = Calendar.getInstance().getTime().getTime();
+    }
 
     public int getExpenditureId() {
         return expenditureId;
@@ -80,7 +76,7 @@ public class ExpenditureModel {
         return refID;
     }
 
-    public int getDate(){
+    public long getDate(){
         return date;
     }
 }

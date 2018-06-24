@@ -30,6 +30,7 @@ import java.util.Map;
 
 import comparators.sortAlphabetically;
 import comparators.sortByAmount;
+import comparators.sortLastModified;
 import comparators.sortMostFreq;
 import models.CategoryModel;
 import models.ExpenditureModel;
@@ -148,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"Sorted by Value!", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.menu_sort_last_modified:
+                        Collections.sort(categoryModelList, new sortLastModified(dbHandler.getAllExpAmounts()));
+                        updateMainList(categoryModelList);
                         Toast.makeText(getApplicationContext(),"Last Modified Sorted!", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.menu_sort_frequency:
@@ -295,11 +298,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void insertAmount(String categoryName, int amount, String event){
-        dbHandler.addExpenditure(new ExpenditureModel(amount, event, categoryName, 5));
+        dbHandler.addExpenditure(new ExpenditureModel(amount, event, categoryName, 0));
 
         CategoryModel cm = new CategoryModel(categoryName,1);
         int indexOfCategory = categoryModelList.indexOf(cm);
         cm.setTotalAmount(categoryModelList.get(indexOfCategory).getTotalAmount() + amount);
+        cm.setDate(categoryModelList.get(indexOfCategory).getDate() + 1);
 
         categoryModelList.set(indexOfCategory, cm);
     }

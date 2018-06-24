@@ -257,7 +257,7 @@ public class DBHandler extends SQLiteOpenHelper{
                 expModel.setAmount(c.getInt(c.getColumnIndex(COL_AMOUNT)));
                 expModel.setEvent(c.getString(c.getColumnIndex(COL_EVENT)));
                 expModel.setRefID(c.getString(c.getColumnIndex(COL_REFID)));
-                expModel.setDate(c.getInt(c.getColumnIndex(COL_SUB_DATE)));
+                expModel.setDate(c.getLong(c.getColumnIndex(COL_SUB_DATE)));
 
                 expenditureModelList.add(expModel);
             } while (c.moveToNext());
@@ -288,7 +288,7 @@ public class DBHandler extends SQLiteOpenHelper{
                 expModel.setAmount(c.getInt(c.getColumnIndex(COL_AMOUNT)));
                 expModel.setEvent(c.getString(c.getColumnIndex(COL_EVENT)));
                 expModel.setRefID(c.getString(c.getColumnIndex(COL_REFID)));
-                expModel.setDate(c.getInt(c.getColumnIndex(COL_SUB_DATE)));
+                expModel.setDate(c.getLong(c.getColumnIndex(COL_SUB_DATE)));
 
                 expenditureModelList.add(expModel);
             } while (c.moveToNext());
@@ -348,7 +348,7 @@ public class DBHandler extends SQLiteOpenHelper{
     // CREATE TABLE test (keyName VARCHAR(50), totalAmount INTEGER, timeInfo DATE FORMAT 'YYYY-MM-DD')
     // DATE format seems to have no affect at all. I would need another trigger to format it.. but I
     // would rather do that in Java instead.
-    // Will be considdering DATE as a normal INT and use that as a 'DATE' instead.
+    // Will be considering DATE as a normal INT and use that as a 'DATE' instead.
     @Override
     public void onCreate(SQLiteDatabase db) {
         // TODO : Save these strings somewhere else, they are also used in deleteAllCategoryData. Maybe call them from their models??
@@ -359,7 +359,7 @@ public class DBHandler extends SQLiteOpenHelper{
         String CREATE_SUBAMOUNT_TABLE = "CREATE TABLE " + TABLE_EXPENDITURE + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + COL_AMOUNT + " INTEGER,"
                 + COL_EVENT + " VARCHAR(50)," + COL_REFID + " VARCHAR(50),"
-                + COL_SUB_DATE + " INTEGER,"
+                + COL_SUB_DATE + " LONG,"
                 + "CONSTRAINT fk FOREIGN KEY(" + COL_REFID
                 + ") REFERENCES "+ TABLE_CATEGORY + "(" + KEY_NAME + "))";
 
