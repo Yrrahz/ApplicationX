@@ -368,7 +368,7 @@ public class DBHandler extends SQLiteOpenHelper{
                 + " = (SELECT SUM(" + COL_TOTAL_AMOUNT + ") FROM " + TABLE_CATEGORY + " WHERE " + KEY_NAME
                 + " = NEW."+COL_REFID+") + NEW."+COL_AMOUNT + ","
                 + COL_DATE + " = (SELECT " + COL_DATE + " FROM " + TABLE_CATEGORY + " WHERE " + KEY_NAME + " = NEW."+COL_REFID+ ") + 1"
-                + " WHERE " + KEY_NAME + " = NEW."+COL_REFID+";END;";
+                + " WHERE " + KEY_NAME + " = NEW."+COL_REFID+ " AND NEW." + COL_EVENT + " = 'Expenditure Event'" + ";END;";
 
         db.execSQL(CREATE_CATEGORY_TABLE);
         db.execSQL(CREATE_SUBAMOUNT_TABLE);
@@ -386,50 +386,50 @@ public class DBHandler extends SQLiteOpenHelper{
     }
 
     public void fyllDb(){
-        CategoryModel cm = new CategoryModel("TestCat", 1337);
+        CategoryModel cm = new CategoryModel("TestCat", 0);
         addCategory(cm);
-        cm = new CategoryModel("Newtestcat",10);
+        cm = new CategoryModel("Newtestcat",0);
         addCategory(cm);
-        cm = new CategoryModel("Hyra",11);
+        cm = new CategoryModel("Hyra",0);
         addCategory(cm);
-        cm = new CategoryModel("Spel",12);
+        cm = new CategoryModel("Spel",0);
         addCategory(cm);
-        cm = new CategoryModel("Mat",13);
+        cm = new CategoryModel("Mat",0);
         addCategory(cm);
-        cm = new CategoryModel("Hygien",14);
+        cm = new CategoryModel("Hygien",0);
         addCategory(cm);
-        cm = new CategoryModel("Transport",15);
+        cm = new CategoryModel("Transport",0);
         addCategory(cm);
-        cm = new CategoryModel("Jobb",16);
+        cm = new CategoryModel("Jobb",0);
         addCategory(cm);
-        cm = new CategoryModel("Övrigt",17);
+        cm = new CategoryModel("Övrigt",0);
         addCategory(cm);
 
-        ExpenditureModel expModel = new ExpenditureModel(123,10337,"TestExp Model !/", "TestCat",1);
+        ExpenditureModel expModel = new ExpenditureModel(123,10337,"Expenditure Event", "TestCat",1);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(124,1524,"event","Hyra",1);
+        expModel = new ExpenditureModel(124,1524,"Expenditure Event","Hyra",1);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(125,165,"event","Spel",1);
+        expModel = new ExpenditureModel(125,165,"Expenditure Event","Spel",1);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(126,1234,"event","Mat",1);
+        expModel = new ExpenditureModel(126,1234,"Expenditure Event","Mat",1);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(127,1684,"event","Hygien",1);
+        expModel = new ExpenditureModel(127,1684,"Expenditure Event","Hygien",1);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(128,1693,"event","Transport",1);
+        expModel = new ExpenditureModel(128,1693,"Expenditure Event","Transport",1);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(129,1774,"event","Jobb",1);
+        expModel = new ExpenditureModel(129,1774,"Expenditure Event","Jobb",1);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(1210,152,"event","Övrigt",1);
+        expModel = new ExpenditureModel(1210,152,"Expenditure Event","Övrigt",1);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(1211,15,"event","Spel",1);
+        expModel = new ExpenditureModel(1211,15,"Expenditure Event","Spel",1);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(1212,1524,"event","Spel",1);
+        expModel = new ExpenditureModel(1212,1524,"Expenditure Event","Spel",1);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(1213,1567,"event","Spel",1);
+        expModel = new ExpenditureModel(1213,1567,"Expenditure Event","Spel",1);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(1214,1561,"event","Mat",1);
+        expModel = new ExpenditureModel(1214,1561,"Expenditure Event","Mat",1);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(1215,1524,"event","Newtestcat",1);
+        expModel = new ExpenditureModel(1215,1524,"Expenditure Event","Newtestcat",1);
         addExpenditure(expModel);
 
     }

@@ -5,11 +5,15 @@ Branches:
 	✔	devDatabase - Implement database from YrrahMoney.
 	✔	devDesign	- Implement the design.
 		devCleanUp	- Clean up
-		deDate		- Implement date features
-	☼	devLogic	- Implement the logic from devDesign
+	✘	deDate		- Implement date features
+	✔	devLogic	- Implement the logic from devDesign
+		devHowTo	- Implement tutorial
+	☼	devAbout	- Implement About
+		devSettings - Implement Settings
 ---------------------------------------------
+		expStats	- Extend the Stats activity
 		extDropDown	- AddCategory button dropdown
-		extFloat	- Float + - button.
+	Δ	extFloat	- Float + - button.
 		extTest		- Implement tests.
 		extTheme	- Implement option to another theme.
 
@@ -23,6 +27,14 @@ Details:
 	devDate		- Implementera datumhantering. Stats ska kunna förfrågas till att visa upp stats baserat på datum. Allt detta borde kunna göras då datumstrukturen redan finns. En ny meny med olika val av sortering som i MainActivity borde funka snyggt och bra.
 
 	devLogic	- Implementera logiken bakom de design objekten implementerade i devDesign. Mycket är redan gjort men det kommer inte bli någon mer design. Därav ny branch. Fixa så att mainList inte återställer sin position när man lägger in ny expModel.
+	
+	devHowTo	- Implementera manualen. Kanske några bilder. Kanske också att den startar default första gången du startar appen.
+	
+	devAbout	- Lite smått kuriosa information.
+	
+	devSettings	- Inställningar. Om jag implementerar extTheme, så är det något som kan vara här. Automatisk delete? Lär utökas allt eftersom man kommer på fler saker.
+	
+	expStats	- Utöka Stats activity, jämnför olika månader med varandra. Månadsstats. Diagram.
 
 	extDropDown	- Knappen "Add Category" skulle kunna komma ner som en dropdown effekt eftersom den antagligen inte används så ofta.
 

@@ -302,7 +302,11 @@ public class MainActivity extends AppCompatActivity {
 
         CategoryModel cm = new CategoryModel(categoryName,1);
         int indexOfCategory = categoryModelList.indexOf(cm);
-        cm.setTotalAmount(categoryModelList.get(indexOfCategory).getTotalAmount() + amount);
+        if(event.equals("Expenditure Event")){
+            cm.setTotalAmount(categoryModelList.get(indexOfCategory).getTotalAmount() + amount);
+        }else{
+            cm.setTotalAmount(categoryModelList.get(indexOfCategory).getTotalAmount());
+        }
         cm.setDate(categoryModelList.get(indexOfCategory).getDate() + 1);
 
         categoryModelList.set(indexOfCategory, cm);

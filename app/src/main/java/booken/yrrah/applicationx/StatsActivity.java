@@ -55,32 +55,43 @@ public class StatsActivity extends AppCompatActivity {
         int nrOfEvents = expList.size();
         String eventWithHighestValue = "";
         int mostExpEvent = 0;
+        int[] calc = {0,0,0}; // int[0] = income, int[1] = expenditure, int[2] = highest income
+        String mainIncome = "";
 
         for(ExpenditureModel exp : expList){
-            if(exp.getAmount() > mostExpEvent){
+            if(exp.getAmount() > mostExpEvent && !exp.getEvent().equals("Income Event")){
                 mostExpEvent = exp.getAmount();
                 eventWithHighestValue = exp.getRefID();
+            }
+            if(exp.getEvent().equals("Income Event")){
+                calc[0] += exp.getAmount();
+                if(exp.getAmount() >= calc[2]){
+                    calc[2] = exp.getAmount();
+                    mainIncome = exp.getRefID();
+                }
+            }else{
+                calc[1] += exp.getAmount();
             }
         }
 
         String stats = "Number of Categories\t\t\t"+ nrOfCategories +"\n\nNumber of Events\t\t\t"+nrOfEvents+
                 "\n\nMost expensive Category\t\t\t"+mostExpensiveCategory+" "+mostExpensiveCat+
                 "\n\nMost expensive Event\t\t\t"+eventWithHighestValue+" "+mostExpEvent+
-                "\n\nCategory with most Events\t\t\t"+catWithMostExp+" "+catWithMostExpInt;
+                "\n\nCategory with most Events\t\t\t"+catWithMostExp+" "+catWithMostExpInt+
+                "\n\n\n\nMain Income\n\n"+mainIncome+"\t\t\t"+calc[2];
+
+
+
         TextView listOfStats = findViewById(R.id.listOfStatsView);
         listOfStats.setText(stats);
 
-        int income = 0;
-        int expenditure = dbHandler.totalAmount();
-        int result = income - expenditure;
-
         listOfStats = findViewById(R.id.nrOfIncome);
-        listOfStats.setText(String.format("%s",income));
+        listOfStats.setText(String.format("%s",calc[0]));
 
         listOfStats = findViewById(R.id.nrOfExpenditure);
-        listOfStats.setText(String.format("%s",expenditure));
+        listOfStats.setText(String.format("%s",calc[1]));
 
         listOfStats = findViewById(R.id.nrOfResult);
-        listOfStats.setText(String.format("%s",result));
+        listOfStats.setText(String.format("%s",calc[0] - calc[1]));
     }
 }
