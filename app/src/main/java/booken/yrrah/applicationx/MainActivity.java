@@ -120,7 +120,21 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Settings Initiated!", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_about:
-                sortingPopupMenu(findViewById(R.id.menu_about));
+                Toast.makeText(getApplicationContext(),"About Initiated!", Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder aboutBuilder = new AlertDialog.Builder(this);
+                aboutBuilder.setTitle("About");
+                aboutBuilder.setMessage("Hello!\nThis is my first proper Android application.\nThank you to my loving wife who is encouraging me to continue developing.");
+                aboutBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                aboutBuilder.show();
+                return true;
+            case R.id.menu_sort_by_user_choice:
+                sortingPopupMenu(findViewById(R.id.menu_sort_by_user_choice));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

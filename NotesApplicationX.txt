@@ -8,7 +8,7 @@ Branches:
 	✘	deDate		- Implement date features
 	✔	devLogic	- Implement the logic from devDesign
 		devHowTo	- Implement tutorial
-	☼	devAbout	- Implement About
+	✔	devAbout	- Implement About
 		devSettings - Implement Settings
 ---------------------------------------------
 		expStats	- Extend the Stats activity
