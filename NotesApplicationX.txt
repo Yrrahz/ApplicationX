@@ -2,19 +2,19 @@
 ApplicationX - Notes
 
 Branches:
-	✔	devDatabase - Implement database from YrrahMoney.
-	✔	devDesign	- Implement the design.
+	✔	devDatabase - Implement database from YrrahMoney
+	✔	devDesign	- Implement the design
 		devCleanUp	- Clean up
-	✘	deDate		- Implement date features
+	✘	devDate		- Implement date features
 	✔	devLogic	- Implement the logic from devDesign
 		devHowTo	- Implement tutorial
 	✔	devAbout	- Implement About
 		devSettings - Implement Settings
 ---------------------------------------------
-		expStats	- Extend the Stats activity
+	Δ	extStats	- Extend the Stats activity. And/Or color on income categories.
 		extDropDown	- AddCategory button dropdown
-	Δ	extFloat	- Float + - button.
-		extTest		- Implement tests.
+	Δ	extFloat	- Float + - button
+		extTest		- Implement tests
 		extTheme	- Implement option to another theme.
 
 Details:
@@ -42,4 +42,4 @@ Details:
 
 	extTest 	- Lägg till tester, om jag orkar, därav 'ext' tag.
 
-	extTheme 	- Lägg till en feature så att man kan byta tema eller färger på appen.
+	extTheme 	- Lägg till en feature så att man kan byta tema eller färger på appen. Lägg kanske även till färg på inkomst kategorier?

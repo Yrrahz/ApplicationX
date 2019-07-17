@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUp(){
         this.dbHandler = new DBHandler(this);
-        dbHandler.fyllDb();
+        //dbHandler.fyllDb();
         this.categoryModelList = dbHandler.getAllCategories();
 
         updateMainList(categoryModelList);
@@ -256,9 +256,24 @@ public class MainActivity extends AppCompatActivity {
         data.clear();
 
         for(CategoryModel cm : categoryList){
+            int income = 0;
+            List<ExpenditureModel> expenditureModelList = dbHandler.getAllExpToCategory(cm.getName());
+            for(ExpenditureModel expenditureModel : expenditureModelList){
+                if(expenditureModel.getEvent().equals("Income Event")){
+                    income += expenditureModel.getAmount();
+                }
+            }
+
             Map<String, String> listViewElement = new HashMap<>(2);
             listViewElement.put(categoryTitle, cm.getName());
-            listViewElement.put(categoryData,"Total Amount: "+cm.getTotalAmount());
+            if(income == 0){
+                listViewElement.put(categoryData,"Total Expenditure: "+cm.getTotalAmount());
+            }else{
+                listViewElement.put(categoryData,"Total Expenditure: "+cm.getTotalAmount()+"    Income: "+income);
+            }
+
+
+            // TODO : See if I can find income events, then add those to the right of total Amount.
 
             data.add(listViewElement);
         }
@@ -321,7 +336,7 @@ public class MainActivity extends AppCompatActivity {
         }else{
             cm.setTotalAmount(categoryModelList.get(indexOfCategory).getTotalAmount());
         }
-        cm.setDate(categoryModelList.get(indexOfCategory).getDate() + 1);
+        cm.setDate(categoryModelList.get(indexOfCategory).getDate() + 1); // TODO : This really shouldn't be setDate...
 
         categoryModelList.set(indexOfCategory, cm);
     }

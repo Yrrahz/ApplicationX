@@ -2,10 +2,13 @@ package booken.yrrah.applicationx;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 
+import comparators.sortByAmount;
 import models.CategoryModel;
 import models.ExpenditureModel;
 
@@ -19,6 +22,7 @@ public class StatsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stats);
 
         setUp();
+        percentageStats();
     }
 
     // Here you can practice Algorithms. TODO : Optimize, maybe with some threads...
@@ -93,5 +97,23 @@ public class StatsActivity extends AppCompatActivity {
 
         listOfStats = findViewById(R.id.nrOfResult);
         listOfStats.setText(String.format("%s",calc[0] - calc[1]));
+    }
+
+    private void percentageStats(){
+        float totalAmount = dbHandler.totalAmount();
+        List<CategoryModel> categoryModelList = dbHandler.getAllCategories();
+        Collections.sort(categoryModelList, new sortByAmount());
+
+        EditText percentagePresentation = findViewById(R.id.percentageStats);
+        percentagePresentation.setEnabled(false);
+
+        String dataToPresent;
+        float percentageValue;
+        for(CategoryModel cm : categoryModelList){
+            percentageValue = Math.round(((float)cm.getTotalAmount() / totalAmount) * 1000);
+            percentageValue = percentageValue/10; // For some weird reason... you can't divide 10 from the line above.. So I do it here.
+            dataToPresent = percentagePresentation.getText().toString() + "\n" + cm.getName() + "\t\t\t" + percentageValue + "%";
+            percentagePresentation.setText(dataToPresent);
+        }
     }
 }

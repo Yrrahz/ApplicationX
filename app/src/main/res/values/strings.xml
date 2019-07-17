@@ -16,4 +16,5 @@
     <string name="sort_value">Sort by Value</string>
     <string name="sort_last_modified">Sort Last Modified</string>
     <string name="sort_most_freq">Sort by Frequency</string>
+    <string name="categories">Categories by Percentage :</string>
 </resources>
