@@ -140,6 +140,20 @@
                 android:textColor="@color/colorAccentDarker"
                 android:textSize="14sp" />
 
+            <View
+                android:id="@+id/line4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorAccentDark" />
+
+            <TextView
+                android:id="@+id/previousMonths"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textColor="@color/colorAccentDarker"/>
+
 
         </LinearLayout>
     </ScrollView>

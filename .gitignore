@@ -8,3 +8,5 @@
 /build
 /captures
 .externalNativeBuild
+sshKey1
+sshKey1.pub

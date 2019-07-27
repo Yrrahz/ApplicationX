@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUp(){
         this.dbHandler = new DBHandler(this);
-        //dbHandler.fyllDb();
+        dbHandler.fyllDb();
         this.categoryModelList = dbHandler.getAllCategories();
 
         updateMainList(categoryModelList);
@@ -271,9 +271,6 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 listViewElement.put(categoryData,"Total Expenditure: "+cm.getTotalAmount()+"    Income: "+income);
             }
-
-
-            // TODO : See if I can find income events, then add those to the right of total Amount.
 
             data.add(listViewElement);
         }

@@ -405,32 +405,33 @@ public class DBHandler extends SQLiteOpenHelper{
         cm = new CategoryModel("Övrigt",0);
         addCategory(cm);
 
-        ExpenditureModel expModel = new ExpenditureModel(123,10337,"Expenditure Event", "TestCat",1);
+        ExpenditureModel expModel = new ExpenditureModel(123,10337,"Expenditure Event", "TestCat",1564305463126L);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(124,1524,"Expenditure Event","Hyra",1);
+        expModel = new ExpenditureModel(124,1524,"Expenditure Event","Hyra",1564305463126L-2592000000L);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(125,165,"Expenditure Event","Spel",1);
+        expModel = new ExpenditureModel(125,165,"Expenditure Event","Spel",1564305463126L-5184000000L);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(126,1234,"Expenditure Event","Mat",1);
+        expModel = new ExpenditureModel(126,1234,"Expenditure Event","Mat",1564305463126L-5184000000L);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(127,1684,"Expenditure Event","Hygien",1);
+        expModel = new ExpenditureModel(127,1684,"Expenditure Event","Hygien",1564305463126L-5184000000L);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(128,1693,"Expenditure Event","Transport",1);
+        expModel = new ExpenditureModel(128,1693,"Expenditure Event","Transport",1564305463126L-12960000000L);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(129,1774,"Expenditure Event","Jobb",1);
+        expModel = new ExpenditureModel(129,1774,"Expenditure Event","Jobb",1564305463126L-15552000000L);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(1210,152,"Expenditure Event","Övrigt",1);
+        expModel = new ExpenditureModel(1210,152,"Expenditure Event","Övrigt",1564305463126L-18144000000L);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(1211,15,"Expenditure Event","Spel",1);
+        expModel = new ExpenditureModel(1211,15,"Expenditure Event","Spel",1564305463126L-20736000000L);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(1212,1524,"Expenditure Event","Spel",1);
+        expModel = new ExpenditureModel(1212,1524,"Expenditure Event","Spel",1564305463126L-23328000000L);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(1213,1567,"Expenditure Event","Spel",1);
+        expModel = new ExpenditureModel(1213,1567,"Expenditure Event","Spel",1564305463126L-25920000000L);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(1214,1561,"Expenditure Event","Mat",1);
+        expModel = new ExpenditureModel(1214,1561,"Expenditure Event","Mat",1564305463126L);
         addExpenditure(expModel);
-        expModel = new ExpenditureModel(1215,1524,"Expenditure Event","Newtestcat",1);
+        expModel = new ExpenditureModel(1215,1524,"Expenditure Event","Newtestcat",1564305463126L);
         addExpenditure(expModel);
-
+        expModel = new ExpenditureModel(1216,1500,"Expenditure Event","Spel",1564305463126L);
+        addExpenditure(expModel);
     }
 }
