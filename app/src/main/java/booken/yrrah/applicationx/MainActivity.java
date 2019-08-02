@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -62,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
 
         switch (item.getItemId()) {
+            case R.id.menu_add_category:
+                categoryButtonPressed();
+                return true;
             case R.id.menu_add_income:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Add Income");
@@ -95,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                         }else{
                             insertAmount(popupSpinner.getSelectedItem().toString(),Integer.parseInt(testAmount), "Income Event");
                             updateMainList(categoryModelList);
-                            updateTotalAmount();
+                            updateTotalAmount(calcCurrentMonthTotalAmount());
                         }
                     }
                 });
@@ -182,7 +186,11 @@ public class MainActivity extends AppCompatActivity {
         popup.show();
     }
 
-    public void categoryButtonPressed(View view){
+    public void floatingCategoryButton(View view){
+        categoryButtonPressed();
+    }
+
+    private void categoryButtonPressed(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add new Category:");
 
@@ -249,30 +257,48 @@ public class MainActivity extends AppCompatActivity {
         this.categoryModelList = dbHandler.getAllCategories();
 
         updateMainList(categoryModelList);
-        updateTotalAmount();
+        updateTotalAmount(calcCurrentMonthTotalAmount());
+
+        setCurrentMonth();
     }
 
     private void updateMainList(final List<CategoryModel> categoryList){
         data.clear();
 
+        Calendar c = Calendar.getInstance();
+        int currentYear =  c.get(Calendar.YEAR);
+        int currentMonth = c.get(Calendar.MONTH); // zero-based
+        int mYear, mMonth;
+
         for(CategoryModel cm : categoryList){
-            int income = 0;
+            int income = 0, expenses = 0;
             List<ExpenditureModel> expenditureModelList = dbHandler.getAllExpToCategory(cm.getName());
             for(ExpenditureModel expenditureModel : expenditureModelList){
-                if(expenditureModel.getEvent().equals("Income Event")){
-                    income += expenditureModel.getAmount();
+                c.setTimeInMillis(expenditureModel.getDate());
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH); // zero-based
+
+                if(currentYear == mYear && currentMonth == mMonth){
+                    if(expenditureModel.getEvent().equals("Income Event")){
+                        income += expenditureModel.getAmount();
+                    }else{
+                        expenses += expenditureModel.getAmount();
+                    }
                 }
+
             }
 
-            Map<String, String> listViewElement = new HashMap<>(2);
-            listViewElement.put(categoryTitle, cm.getName());
-            if(income == 0){
-                listViewElement.put(categoryData,"Total Expenditure: "+cm.getTotalAmount());
-            }else{
-                listViewElement.put(categoryData,"Total Expenditure: "+cm.getTotalAmount()+"    Income: "+income);
-            }
+            if(!(expenses == 0 && income == 0) || cm.getDate() == 0){
+                Map<String, String> listViewElement = new HashMap<>(2);
+                listViewElement.put(categoryTitle, cm.getName());
+                if(income == 0){
+                    listViewElement.put(categoryData,"Total Expenditure: "+expenses);
+                }else{
+                    listViewElement.put(categoryData,"Total Expenditure: "+expenses+"    Income: "+income);
+                }
 
-            data.add(listViewElement);
+                data.add(listViewElement);
+            }
         }
         SimpleAdapter adapter = new SimpleAdapter(this, data,
                 android.R.layout.simple_list_item_2, // <-- Standard lib item, contains both Item and SubItem in listView
@@ -305,7 +331,7 @@ public class MainActivity extends AppCompatActivity {
                         }else {
                             insertAmount(categoryName, Integer.parseInt(input.getText().toString()), "Expenditure Event");
                             updateMainList(categoryModelList);
-                            updateTotalAmount();
+                            updateTotalAmount(calcCurrentMonthTotalAmount());
                         }
                     }
                 });
@@ -344,6 +370,11 @@ public class MainActivity extends AppCompatActivity {
         totalResult.setText(String.format("%s",totalAmount.toString()));
     }
 
+    private void updateTotalAmount(int amount){
+        TextView totalResult = findViewById(R.id.textViewTotalResult);
+        totalResult.setText(String.format("%s",amount));
+    }
+
     private List<String> getAllCategoriesList(){
         List<String> returnCategoryNames = new ArrayList<>();
 
@@ -356,5 +387,50 @@ public class MainActivity extends AppCompatActivity {
             return returnCategoryNames;
         }
         return returnCategoryNames;
+    }
+
+    private void setCurrentMonth(){
+        String[] monthArray = new String[12];
+
+        monthArray[0] = "January";
+        monthArray[1] = "February";
+        monthArray[2] = "March";
+        monthArray[3] = "April";
+        monthArray[4] = "May";
+        monthArray[5] = "June";
+        monthArray[6] = "July";
+        monthArray[7] = "August";
+        monthArray[8] = "September";
+        monthArray[9] = "October";
+        monthArray[10] = "November";
+        monthArray[11] = "December";
+
+        Calendar c = Calendar.getInstance();
+        int currentMonth = c.get(Calendar.MONTH); // zero-based
+
+        TextView currentMonthTextView = findViewById(R.id.currentMonth);
+        currentMonthTextView.setText(monthArray[currentMonth]);
+    }
+
+    private int calcCurrentMonthTotalAmount(){
+        Calendar c = Calendar.getInstance();
+        int currentYear = c.get(Calendar.YEAR);
+        int currentMonth = c.get(Calendar.MONTH); // zero-based
+        int mYear, mMonth;
+        int totalAmount = 0;
+
+        List<ExpenditureModel> expenditureModelList = dbHandler.getAllExpAmounts();
+
+        for(ExpenditureModel expenditureModel : expenditureModelList){
+            c.setTimeInMillis(expenditureModel.getDate());
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH); // zero-based
+
+            if(currentYear == mYear && currentMonth == mMonth && expenditureModel.getEvent().equals("Expenditure Event")){
+                totalAmount += expenditureModel.getAmount();
+            }
+        }
+
+        return totalAmount;
     }
 }

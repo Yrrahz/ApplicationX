@@ -433,5 +433,20 @@ public class DBHandler extends SQLiteOpenHelper{
         addExpenditure(expModel);
         expModel = new ExpenditureModel(1216,1500,"Expenditure Event","Spel",1564305463126L);
         addExpenditure(expModel);
+
+        expModel = new ExpenditureModel(1217,152,"Expenditure Event","Övrigt",1565610426455L-18144000000L);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(1218,15,"Expenditure Event","Spel",1565610426455L-20736000000L);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(1219,1524,"Expenditure Event","Spel",1565610426455L);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(1220,1567,"Expenditure Event","Spel",1565610426455L);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(1221,1561,"Expenditure Event","Mat",1565610426455L);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(1222,1524,"Expenditure Event","Newtestcat",1565610426455L);
+        addExpenditure(expModel);
+        expModel = new ExpenditureModel(1216,1500,"Expenditure Event","Jobb",1565610426455L);
+        addExpenditure(expModel);
     }
 }
